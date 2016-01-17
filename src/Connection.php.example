@@ -1,0 +1,58 @@
+<?php
+class Connection{
+	private $conn;
+	public function __construct(){
+		$this->conn = new PDO('mysql:host=localhost;dbname=gendata;charset=UTF8', 'user', 'pass');
+	}
+	
+	public function __destruct(){}
+	
+	public function selectNombreHombre($id){
+ 		$query = "SELECT nom_h FROM nombre_hombre WHERE id_nh=$id";
+ 		
+		$result = $this->conn->prepare($query);
+
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function selectNombreMujer($id){
+ 		$query = "SELECT nom_m FROM nombre_mujer WHERE id_nm=$id";
+ 		$result = $this->conn->prepare($query);
+
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function selectApp($id){
+ 		$query = "SELECT app FROM apellido WHERE id_app=$id";
+ 		$result = $this->conn->prepare($query);
+
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function selectLocalidad($id){
+ 		$query = "SELECT nom_loc FROM localidad WHERE id_loc=$id";
+ 		$result = $this->conn->prepare($query);
+
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+ 	public function selectMunicipio($id){
+ 		$query = "SELECT nom_mun FROM municipio WHERE id_municipio=$id";
+ 		$result = $this->conn->prepare($query);
+
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+ 	public function selectEstado($id){
+ 		$query = "SELECT nom_estado FROM estado WHERE id_estado=$id";
+ 		$result = $this->conn->prepare($query);
+
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+}
