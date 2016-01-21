@@ -137,21 +137,21 @@
 						<div class="opc2">
 							<label class="lblBold">Opciones Adicionales</label>
 							<div>
-								<input type="checkbox" name="inc_ct" id="inc_ct" checked="checked">
+								<input type="checkbox" name="inc_ct" id="inc_ct">
 								<label for="inc_ct">Incluir sentencia CREATE TABLE</label>
 							</div>
 							<div>
-								<input type="checkbox" name="inc_dt" id="inc_dt" checked="checked">
+								<input type="checkbox" name="inc_dt" id="inc_dt">
 								<label for="inc_dt">Incluir sentencia DROP TABLE</label>
 							</div>
 						</div>
 						<div class="opc3">
 							<div>
-								<input type="radio" name="pk_opc" id="no_pk" value="none">
+								<input type="radio" name="pk_opc" id="no_pk" value="none" checked="checked">
 								<label for="no_pk">Ninguna</label>
 							</div>
 							<div>
-								<input type="radio" name="pk_opc" id="pk_auto" value="default" checked="checked">
+								<input type="radio" name="pk_opc" id="pk_auto" value="default">
 								<label for="pk_auto">Agregar cláusulas PRIMARY KEY y AUTO_INCREMENT</label>
 							</div>
 						</div>
