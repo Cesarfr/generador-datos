@@ -21,6 +21,16 @@
 		// Creacion de la conexion a la base de datos
 		$dbverf = new Connection();
 		
+		/*
+		 * Obtencion del tamaño de cada tabla
+		 */
+		$nomHom = $dbverf->countNh();
+		$nomMuj = $dbverf->countNm();
+		$apel = $dbverf->countApp();
+		$loca = $dbverf->countLoc();
+		$munic = $dbverf->countMun();
+		$esta = $dbverf->countEst();
+		
 		// clonamos el array para manipularlo
 		$clonePOST = $_POST;
 		//var_dump($clonePOST);
@@ -34,9 +44,10 @@
 		unset($_POST['pk_opc']);
 		unset($_POST['num_filas']);
 		unset($_POST['generar']);
+		
 		// calculamos el tamaño del array de solo inputs y selects (RELACION[input,select]) es decir va uno y uno
 		$taman = count($_POST);
-		// obtenemos las claves de cada elemnto en el array, OJO: solo obtenemos una clave numerica ya que por default trae el nombre del elemento HTML
+		
 		$arrayID = array_keys($_POST);
 		//var_dump($arrayID);
 		$numero = ""; // variable para los telefonos
@@ -64,7 +75,7 @@
 					$sintaxis .= ", \n".$_POST[$arrayID[$i]]." varchar(255) NOT NULL";
 				}
 			}
-			$sintaxis .=")ENGINE=INNODB;\n\n";
+			$sintaxis .=");\n\n";
 		}
 		/**
 		 * Aqui comienzan las consultas
@@ -85,47 +96,47 @@
 						// Switch que gestiona el tipo de dato a generar segun lo escogido por el usuario
 						switch ($_POST[$arrayID[$i]]) {
 							case 'nom_h':
-								$res = $dbverf->selectNombreHombre(rand(1, 25442));
+								$res = $dbverf->selectNombreHombre(rand(1, $nomHom[0]['nh']));
 								$sintaxis .= "\"".$res[0]['nom_h']."\",";
 							break;
 							case 'nom_m':
-								$res = $dbverf->selectNombreMujer(rand(1, 24494));
-								$sintaxis.="\"".$res[0]['nom_m']."\",";
+								$res = $dbverf->selectNombreMujer(rand(1, $nomMuj[0]['nm']));
+								$sintaxis .= "\"".$res[0]['nom_m']."\",";
 							break;
 							case 'app_pat':
-								$res = $dbverf->selectApp(rand(1, 3134));
-								$sintaxis.="\"".$res[0]['app']."\",";
+								$res = $dbverf->selectApp(rand(1, $apel[0]['ape']));
+								$sintaxis .= "\"".$res[0]['app']."\",";
 							break;
 							case 'app_mat':
-								$res = $dbverf->selectApp(rand(1, 45));
-								$sintaxis.="\"".$res[0]['app']."\",";
+								$res = $dbverf->selectApp(rand(1, $apel[0]['ape']));
+								$sintaxis .= "\"".$res[0]['app']."\",";
 							break;
 							case 'email':
 								$sintaxis .= "\"".generateMail()."@hotmail.com\",";
 							break;
 							case 'telefono':
 								// Se genera un numero de 10 cifras aleatorias para el telefono usando la funcion rand()
-								for ($tel=0; $tel < 10; $tel++) { 
-									$numero .=rand(0, 9);
+								for ($tel = 0; $tel < 10; $tel++) { 
+									$numero .= rand(0, 9);
 								}
-								$sintaxis.="\"".$numero."\",";
+								$sintaxis .= "\"".$numero."\",";
 								$numero = "";
 							break;
 							case 'password':
 								// generacion de una cadena de numeros y letras para la contraseña
-								$sintaxis.="\"".substr(sha1( microtime() ),0,8)."\","; 
+								$sintaxis .= "\"".generateMail(8)."\","; 
 							break;
 							case 'localidad':
-								$res = $dbverf->selectLocalidad(rand(1, 48536));
-								$sintaxis.="\"".$res[0]['nom_loc']."\",";
+								$res = $dbverf->selectLocalidad(rand(1, $loca[0]['loc']));
+								$sintaxis .= "\"".$res[0]['nom_loc']."\",";
 							break;
 							case 'municipio':
-								$res = $dbverf->selectMunicipio(rand(1, 2456));
-								$sintaxis.="\"".$res[0]['nom_mun']."\",";
+								$res = $dbverf->selectMunicipio(rand(1, $munic[0]['mun']));
+								$sintaxis .= "\"".$res[0]['nom_mun']."\",";
 							break;
 							case 'estado':
-								$res = $dbverf->selectEstado(rand(1, 32));
-								$sintaxis.="\"".$res[0]['nom_estado']."\",";
+								$res = $dbverf->selectEstado(rand(1, $esta[0]['est']));
+								$sintaxis .= "\"".$res[0]['nom_estado']."\",";
 							break;
 						}
 					}
@@ -142,20 +153,20 @@
                     	// Switch que gestiona el tipo de dato a generar segun lo escogido por el usuario
                         switch ($_POST[$arrayID[$i]]) {
 							case 'nom_h':
-								$res = $dbverf->selectNombreHombre(rand(1, 25442));
+								$res = $dbverf->selectNombreHombre(rand(1, $nomHom[0]['nh']));
 								$sintaxis .= "\"".$res[0]['nom_h']."\",";
 							break;
 							case 'nom_m':
-								$res = $dbverf->selectNombreMujer(rand(1, 24494));
-								$sintaxis.="\"".$res[0]['nom_m']."\",";
+								$res = $dbverf->selectNombreMujer(rand(1, $nomMuj[0]['nm']));
+								$sintaxis .= "\"".$res[0]['nom_m']."\",";
 							break;
 							case 'app_pat':
-								$res = $dbverf->selectApp(rand(1, 3134));
-								$sintaxis.="\"".$res[0]['app']."\",";
+								$res = $dbverf->selectApp(rand(1, $apel[0]['ape']));
+								$sintaxis .= "\"".$res[0]['app']."\",";
 							break;
 							case 'app_mat':
-								$res = $dbverf->selectApp(rand(1, 45));
-								$sintaxis.="\"".$res[0]['app']."\",";
+								$res = $dbverf->selectApp(rand(1, $apel[0]['ape']));
+								$sintaxis .= "\"".$res[0]['app']."\",";
 							break;
 							case 'email':
 								$sintaxis .= "\"".generateMail()."@gmail.com\",";
@@ -163,26 +174,26 @@
 							case 'telefono':
 								// Se genera un numero de 10 cifras aleatorias para el telefono usando la funcion rand()
 								for ($tel=0; $tel < 10; $tel++) { 
-									$numero .=rand(0, 9);
+									$numero .= rand(0, 9);
 								}
-								$sintaxis.="\"".$numero."\",";
+								$sintaxis .= "\"".$numero."\",";
 								$numero = "";
 							break;
 							case 'password':
 								// generacion de una cadena de numeros y letras para la contraseña
-								$sintaxis.="\"".substr(sha1( microtime() ),0,8)."\","; 
+								$sintaxis .= "\"".generateMail(8)."\","; 
 							break;
 							case 'localidad':
-								$res = $dbverf->selectLocalidad(rand(1, 48536));
-								$sintaxis.="\"".$res[0]['nom_loc']."\",";
+								$res = $dbverf->selectLocalidad(rand(1, $loca[0]['loc']));
+								$sintaxis .= "\"".$res[0]['nom_loc']."\",";
 							break;
 							case 'municipio':
-								$res = $dbverf->selectMunicipio(rand(1, 2456));
-								$sintaxis.="\"".$res[0]['nom_mun']."\",";
+								$res = $dbverf->selectMunicipio(rand(1, $munic[0]['mun']));
+								$sintaxis .= "\"".$res[0]['nom_mun']."\",";
 							break;
 							case 'estado':
-								$res = $dbverf->selectEstado(rand(1, 32));
-								$sintaxis.="\"".$res[0]['nom_estado']."\",";
+								$res = $dbverf->selectEstado(rand(1, $esta[0]['est']));
+								$sintaxis .= "\"".$res[0]['nom_estado']."\",";
 							break;
                         }
                     }

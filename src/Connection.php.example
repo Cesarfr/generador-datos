@@ -55,4 +55,57 @@ class Connection{
 		$result->execute();
 		return $result->fetchAll(PDO::FETCH_ASSOC);
  	}
+	
+	/*
+	 * Obtencion de total de elementos en las tablas de datos
+	 */
+	
+	public function countNh(){
+ 		$query = "SELECT count(id_nh)nh FROM nombre_hombre";
+ 		
+		$result = $this->conn->prepare($query);
+
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countNm(){
+ 		$query = "SELECT count(id_nm)nm FROM nombre_mujer";
+ 		$result = $this->conn->prepare($query);
+
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countApp(){
+ 		$query = "SELECT count(id_app)ape FROM apellido";
+ 		$result = $this->conn->prepare($query);
+
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countLoc(){
+ 		$query = "SELECT count(id_loc)loc FROM localidad";
+ 		$result = $this->conn->prepare($query);
+
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+ 	public function countMun(){
+ 		$query = "SELECT count(id_municipio)mun FROM municipio";
+ 		$result = $this->conn->prepare($query);
+
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+ 	public function countEst(){
+ 		$query = "SELECT count(id_estado)est FROM estado";
+ 		$result = $this->conn->prepare($query);
+
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
 }
