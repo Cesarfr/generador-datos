@@ -155,28 +155,15 @@
 								<label for="pk_auto">Agregar cláusulas PRIMARY KEY y AUTO_INCREMENT</label>
 							</div>
 						</div>
-<!--
-						<div class="opc4">
-							<label class="lblBold">Tipo de base de datos</label>
-							<div>
-								<select name="tpdb" id="tpdb">
-									<option value="mysql">MySQL</option>
-									<option value="post">PostgreSQL</option>
-									<option value="sqlite">SQLite</option>
-									<option value="sqlserver">SQL Server</option>
-								</select>
-							</div>
-						</div>
--->
 					</div>
 				</div>
 				<div class="gen">
 					Generar
 					<input type="text" name="num_filas" value="100" placeholder="# Filas" id="num_filas" onkeypress="return isInteger(event)"> filas
-					<input type="submit" name="generar" class="btn-succes" id="generar" value="Generar">
-					<div id="proc"></div>
+					<input type="button" name="generar" class="btn-succes" id="generar" value="Generar" onclick="validarForm()">
 				</div>
 			</form>
+			<div id='result'><section id='contenido'></section></div>
 			<footer>Realizado por: Cesar Hernández Antonio</footer>
 		</div>
 	</body>

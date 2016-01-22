@@ -82,37 +82,27 @@ function isInteger(event) {
 function validarForm() {
 	var frm = document.getElementById("frm_gd");
 
-	var ns = document.getElementById("nom_archivo").value;
-	var nt = document.getElementById("nom_tabla").value;
-	var nf = document.getElementById("num_filas").value;
+	var ns = document.getElementById("nom_archivo");
+	var nt = document.getElementById("nom_tabla");
+	var nf = document.getElementById("num_filas");
 
-	// Verificamos que haya algo escrito en el input y que no contenga caracteres especiales, solo son validos los guiones bajos
-	if (ns == null || ns.length == 0 || /^\s+$/.test(ns) || !/^[a-zA-Z0-9]|_+$/.test(ns)) {
-		document.getElementById("nom_archivo").setAttribute('class', 'requerido');
-		document.getElementById("nom_archivo").focus();
-	} // Verificamos que haya algo escrito en el input y que no contenga caracteres especiales, solo son validos los guiones bajos
-	else if (nt == null || nt.length == 0 || /^\s+$/.test(nt) || !/^[a-zA-Z0-9]|_+$/.test(nt)) {
-		document.getElementById("nom_tabla").setAttribute('class', 'requerido');
-		document.getElementById("nom_archivo").removeAttribute('class');
-		document.getElementById("num_filas").removeAttribute('class');
-		document.getElementById("nom_tabla").focus();
-	} // Verificamos que haya algo escrito en el input y que no contenga caracteres especiales, solo son validos los guiones bajos
-	else if (nf == null || nf.length == 0 || /^\s+$/.test(nf) || !/^[0-9]+$/.test(nf)) {
-		document.getElementById("num_filas").setAttribute('class', 'requerido');
-		document.getElementById("nom_archivo").removeAttribute('class');
-		document.getElementById("nom_tabla").removeAttribute('class');
-		document.getElementById("num_filas").focus();
-	} // Validacion de los campos dinamicos
+	if (ns.value == null || ns.value.length == 0 || /^\s+$/.test(ns.value) || !/^[a-zA-Z0-9]|_+$/.test(ns.value)) {
+		showMessage("Escribe un nombre para tu archivo.", ns.id);
+	}
+	else if (nt.value == null || nt.value.length == 0 || /^\s+$/.test(nt.value) || !/^[a-zA-Z0-9]|_+$/.test(nt.value)) {
+		showMessage("Escribe un nombre para la tabla.", nt.id);
+	}
+	else if (nf.value == null || nf.value.length == 0 || /^\s+$/.test(nf.value) || !/^[0-9]+$/.test(nf.value)) {
+		showMessage("Escribe el numero de filas a realizar.", nf.id);
+	}
 	else if (validaDinam() != false) {
-		error_gen.innerHTML = "*** Parece que no has llenado los campos válidos, si no usas todos los campos eliminalos";
-		error_gen.setAttribute("style", "display: block; color: red; font-size: 11pt; font-weight: bold;");
-	} // validacion para campos, es decir que haya algun campo para generar la tabla
+        showMessage("Parece que no has llenado los campos válidos, si no usas todos los campos eliminalos", 'null');
+	}
 	else if (contartr() == 0) {
-		error_gen.innerHTML = "¡¡¡¡ Inserta algunas filas para poder generar tu archivo !!!!";
-		error_gen.setAttribute("style", "display: block; color: red; font-size: 11pt; font-weight: bold;");
-	} else { // Envio del formulario
+        showMessage("¡¡¡¡ Inserta algunas filas para poder generar tu archivo !!!!", "null");
+	}
+    else { // Envio del formulario
 		frm.submit();
-		frm.reset();
 	}
 }
 
@@ -156,14 +146,6 @@ function validaDinam() {
 			nomcam = document.getElementById("nom_campo" + cellsOfRow[j].innerHTML).value;
 			// Verificamos que haya algo escrito en el input y que no contenga caracteres especiales, solo son validos los guiones bajos
 			if (nomcam == null || nomcam.length == 0 || /^\s+$/.test(nomcam) || !/^[a-zA-Z0-9]|_+$/.test(nomcam)) {
-				document.getElementById("nm_arc").setAttribute("style", "display: none;");
-				document.getElementById("nm_tab").setAttribute("style", "display: none;");
-				document.getElementById("num_f").setAttribute("style", "display: none;");
-				document.getElementById("nom_archivo").removeAttribute('class');
-				document.getElementById("nom_tabla").removeAttribute('class');
-				document.getElementById("num_filas").removeAttribute('class');
-				document.getElementById("nom_campo" + cellsOfRow[j].innerHTML).setAttribute('class', 'requerido');
-				document.getElementById("nom_campo" + cellsOfRow[j].innerHTML).focus();
 				found = true;
 			} else {
 				document.getElementById("nom_campo" + cellsOfRow[j].innerHTML).removeAttribute('class');
@@ -178,4 +160,61 @@ function validaDinam() {
 		}
 	}
 	return found;
+}
+
+function showMessage(status, id){
+
+    var window = document.getElementById('result');
+    var cont = document.getElementById('contenido');
+    
+    if (cont) window.removeChild(cont);
+    
+    var h2 = document.createElement('h2');
+    h2.innerHTML='Información';
+    h2.setAttribute('id','pTitulo');
+    
+    var mensaje = status;
+        
+    var p1 = document.createElement('p');
+    p1.innerHTML = mensaje;
+    p1.setAttribute('id','pMens');
+    var br = document.createElement('br');
+    p1.appendChild(br);
+    
+    var buttonR = document.createElement('input');
+    buttonR.setAttribute('type', 'button');
+    buttonR.setAttribute('value', 'Regresar');
+    buttonR.setAttribute('onclick', 'closeDivError(\''+id+'\')');
+
+    var div = document.createElement('div');
+    var br = document.createElement('br');
+    div.appendChild(br);
+    div.setAttribute('id','pBoton');
+    div.appendChild(buttonR);
+    
+    var section = document.createElement('section');
+    section.setAttribute('id','contenido');
+    section.appendChild(h2);
+    section.appendChild(p1);
+    section.appendChild(div);
+    window.appendChild(section);
+
+    window.style.display = 'block';
+
+    var window_width = window.offsetWidth;
+    var window_height = window.offsetHeight;
+
+    window.style.marginLeft = '-' + Math.round(window_width/2) + 'px';
+    window.style.marginTop = '-' + Math.round(window_height/2) + 'px';
+    return true;
+}
+function closeDivError(id){
+    var window = document.getElementById('result');
+    window.innerHTML = '';
+    window.style.display = 'none';
+    console.log(id);
+    if(id != 'null' || id == 'undefined'){
+        var idf = document.getElementById(id);
+        idf.focus(); 
+    }
 }

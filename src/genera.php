@@ -33,7 +33,6 @@
 		
 		// clonamos el array para manipularlo
 		$clonePOST = $_POST;
-		//var_dump($clonePOST);
 		
 		// quitamos elementos del array para solo quedarnos con los 'input' y los 'select'
 		unset($_POST['nom_archivo']);
@@ -146,7 +145,8 @@
 		} else {
 
             for ($k=1; $k <= $clonePOST['num_filas']; $k++) {
-                $sintaxis .= "INSERT INTO ".$clonePOST['nom_tabla']." VALUES('".$k."',";
+                $sintaxis .= "INSERT INTO ".$clonePOST['nom_tabla']." VALUES(";
+                /*$sintaxis .= "INSERT INTO ".$clonePOST['nom_tabla']." VALUES('".$k."',";*/
                 for ($i=0; $i <= $taman-1; $i++) {
                     if ($i%2!=0)
                     {
