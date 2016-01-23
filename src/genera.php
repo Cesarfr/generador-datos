@@ -31,6 +31,7 @@
 		$munic = $dbverf->countMun();
 		$esta = $dbverf->countEst();
 		
+//		var_dump($nomHom);
 		// clonamos el array para manipularlo
 		$clonePOST = $_POST;
 		
