@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-01-2016 a las 19:35:05
+-- Tiempo de generación: 24-01-2016 a las 22:53:08
 -- Versión del servidor: 5.5.46-0ubuntu0.14.04.2
 -- Versión de PHP: 5.5.9-1ubuntu4.14
 
@@ -28,7 +28,6 @@ USE `gendatam`;
 -- Estructura de tabla para la tabla `apellido`
 --
 
-DROP TABLE IF EXISTS `apellido`;
 CREATE TABLE IF NOT EXISTS `apellido` (
   `id_app` int(11) NOT NULL AUTO_INCREMENT,
   `app` varchar(70) DEFAULT NULL,
@@ -3179,20 +3178,9 @@ INSERT INTO `apellido` (`id_app`, `app`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `apev`
---
-DROP VIEW IF EXISTS `apev`;
-CREATE TABLE IF NOT EXISTS `apev` (
-`id_app` int(11)
-,`app` varchar(70)
-);
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `estado`
 --
 
-DROP TABLE IF EXISTS `estado`;
 CREATE TABLE IF NOT EXISTS `estado` (
   `id_estado` int(11) NOT NULL AUTO_INCREMENT,
   `nom_estado` varchar(70) DEFAULT NULL,
@@ -3240,20 +3228,9 @@ INSERT INTO `estado` (`id_estado`, `nom_estado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `estv`
---
-DROP VIEW IF EXISTS `estv`;
-CREATE TABLE IF NOT EXISTS `estv` (
-`id_estado` int(11)
-,`nom_estado` varchar(70)
-);
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `localidad`
 --
 
-DROP TABLE IF EXISTS `localidad`;
 CREATE TABLE IF NOT EXISTS `localidad` (
   `id_loc` int(11) NOT NULL AUTO_INCREMENT,
   `nom_loc` varchar(70) DEFAULT NULL,
@@ -51830,20 +51807,9 @@ INSERT INTO `localidad` (`id_loc`, `nom_loc`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `locv`
---
-DROP VIEW IF EXISTS `locv`;
-CREATE TABLE IF NOT EXISTS `locv` (
-`id_loc` int(11)
-,`nom_loc` varchar(70)
-);
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `municipio`
 --
 
-DROP TABLE IF EXISTS `municipio`;
 CREATE TABLE IF NOT EXISTS `municipio` (
   `id_municipio` int(11) NOT NULL AUTO_INCREMENT,
   `nom_mun` varchar(70) DEFAULT NULL,
@@ -54316,40 +54282,9 @@ INSERT INTO `municipio` (`id_municipio`, `nom_mun`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `munv`
---
-DROP VIEW IF EXISTS `munv`;
-CREATE TABLE IF NOT EXISTS `munv` (
-`id_municipio` int(11)
-,`nom_mun` varchar(70)
-);
--- --------------------------------------------------------
-
---
--- Estructura Stand-in para la vista `nhv`
---
-DROP VIEW IF EXISTS `nhv`;
-CREATE TABLE IF NOT EXISTS `nhv` (
-`id_nh` int(11)
-,`nom_h` varchar(40)
-);
--- --------------------------------------------------------
-
---
--- Estructura Stand-in para la vista `nmv`
---
-DROP VIEW IF EXISTS `nmv`;
-CREATE TABLE IF NOT EXISTS `nmv` (
-`id_nm` int(11)
-,`nom_m` varchar(40)
-);
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `nombre_hombre`
 --
 
-DROP TABLE IF EXISTS `nombre_hombre`;
 CREATE TABLE IF NOT EXISTS `nombre_hombre` (
   `id_nh` int(11) NOT NULL AUTO_INCREMENT,
   `nom_h` varchar(40) DEFAULT NULL,
@@ -79821,7 +79756,6 @@ INSERT INTO `nombre_hombre` (`id_nh`, `nom_h`) VALUES
 -- Estructura de tabla para la tabla `nombre_mujer`
 --
 
-DROP TABLE IF EXISTS `nombre_mujer`;
 CREATE TABLE IF NOT EXISTS `nombre_mujer` (
   `id_nm` int(11) NOT NULL AUTO_INCREMENT,
   `nom_m` varchar(40) DEFAULT NULL,
@@ -104337,60 +104271,6 @@ INSERT INTO `nombre_mujer` (`id_nm`, `nom_m`) VALUES
 (24492, 'Zohora'),
 (24493, 'Zoi'),
 (24494, 'Zoila Rocio');
-
--- --------------------------------------------------------
-
---
--- Estructura para la vista `apev`
---
-DROP TABLE IF EXISTS `apev`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `apev` AS select `apellido`.`id_app` AS `id_app`,`apellido`.`app` AS `app` from `apellido`;
-
--- --------------------------------------------------------
-
---
--- Estructura para la vista `estv`
---
-DROP TABLE IF EXISTS `estv`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `estv` AS select `estado`.`id_estado` AS `id_estado`,`estado`.`nom_estado` AS `nom_estado` from `estado`;
-
--- --------------------------------------------------------
-
---
--- Estructura para la vista `locv`
---
-DROP TABLE IF EXISTS `locv`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `locv` AS select `localidad`.`id_loc` AS `id_loc`,`localidad`.`nom_loc` AS `nom_loc` from `localidad`;
-
--- --------------------------------------------------------
-
---
--- Estructura para la vista `munv`
---
-DROP TABLE IF EXISTS `munv`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `munv` AS select `municipio`.`id_municipio` AS `id_municipio`,`municipio`.`nom_mun` AS `nom_mun` from `municipio`;
-
--- --------------------------------------------------------
-
---
--- Estructura para la vista `nhv`
---
-DROP TABLE IF EXISTS `nhv`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nhv` AS select `nombre_hombre`.`id_nh` AS `id_nh`,`nombre_hombre`.`nom_h` AS `nom_h` from `nombre_hombre`;
-
--- --------------------------------------------------------
-
---
--- Estructura para la vista `nmv`
---
-DROP TABLE IF EXISTS `nmv`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `nmv` AS select `nombre_mujer`.`id_nm` AS `id_nm`,`nombre_mujer`.`nom_m` AS `nom_m` from `nombre_mujer`;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
