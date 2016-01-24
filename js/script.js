@@ -34,6 +34,11 @@ function crearCampos(cantidad) {
 			"<option value='municipio'>Municipio</option>" +
 			"<option value='estado'>Estado</option>" +
 			"</optgroup>" +
+			"<optgroup label='Numérico'>" +
+			"<option value='ai'>AutoIncrementable</option>" +
+			"<option value='dal'>Decimal aleatorio</option>" +
+			"<option value='dinero'>Dinero ($)</option>" +
+			"</optgroup>" +
 			"</select>" +
 			"</td>";
 		//Insertar 'celda'o componente en fila nueva. Corresponde a la opción eliminar fila de
