@@ -33,11 +33,12 @@ function crearCampos(cantidad) {
 			"<option value='localidad'>Localidad</option>" +
 			"<option value='municipio'>Municipio</option>" +
 			"<option value='estado'>Estado</option>" +
+			"<option value='pais'>País</option>" +
+			"</optgroup>" +
 			"<optgroup label='Numérico'>" +
 			"<option value='ai'>AutoIncrementable</option>" +
 			"<option value='dal'>Decimal aleatorio</option>" +
 			"<option value='dinero'>Dinero ($)</option>" +
-			"</optgroup>" +
 			"</optgroup>" +
 			"</select>" +
 			"</td>";

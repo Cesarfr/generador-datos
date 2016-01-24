@@ -30,8 +30,8 @@
 		$loca = $dbverf->countLoc();
 		$munic = $dbverf->countMun();
 		$esta = $dbverf->countEst();
+		$pais = $dbverf->countPais();
 		
-//		var_dump($nomHom);
 		// clonamos el array para manipularlo
 		$clonePOST = $_POST;
 		
@@ -135,6 +135,10 @@
 						case 'estado':
 							$res = $dbverf->selectEstado(rand(1, $esta[0]['est']));
 							$sintaxis .= "\"".$res[0]['nom_estado']."\",";
+						break;
+						case 'pais':
+							$res = $dbverf->selectPais(rand(1, $pais[0]['pai']));
+							$sintaxis .= "\"".$res[0]['nom_pais']."\",";
 						break;
 						case 'ai':
 							$sintaxis .= "\"".($k)."\",";
