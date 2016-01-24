@@ -57,6 +57,14 @@ class Connection{
 		return $result->fetchAll(PDO::FETCH_ASSOC);
  	}
 	
+	public function selectPais($id){
+ 		$query = "SELECT nom_pais FROM pais WHERE id_pais=$id";
+ 		$result = $this->conn->prepare($query);
+
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
 	/*
 	 * Obtencion de total de elementos en las tablas de datos
 	 */
@@ -104,6 +112,14 @@ class Connection{
 	
  	public function countEst(){
  		$query = "SELECT count(id_estado)est FROM estado";
+ 		$result = $this->conn->prepare($query);
+
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countPais(){
+ 		$query = "SELECT count(id_pais)pai FROM pais";
  		$result = $this->conn->prepare($query);
 
 		$result->execute();
