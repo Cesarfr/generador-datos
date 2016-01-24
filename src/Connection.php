@@ -1,8 +1,9 @@
 <?php
 class Connection{
 	private $conn;
+	
 	public function __construct(){
-		$this->conn = new PDO('mysql:host=localhost;dbname=gendata;charset=UTF8', 'user', 'pass');
+		$this->conn = new PDO('mysql:host=localhost;dbname=gendatam;charset=UTF8', 'root', 'mysql');
 	}
 	
 	public function __destruct(){}
