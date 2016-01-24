@@ -1,11 +1,9 @@
 <?php
 class Connection{
 	private $conn;
-	
 	public function __construct(){
 		$this->conn = new PDO('sqlite:gendata.db');
 	}
-	
 	public function __destruct(){}
 	
 	public function selectNombreHombre($id){
