@@ -94,19 +94,19 @@
 					// Switch que gestiona el tipo de dato a generar segun lo escogido por el usuario
 					switch ($_POST[$arrayID[$i]]) {
 						case 'nom_h':
-							$res = $dbverf->selectNombreHombre(rand(1, $nomHom[0]['nh']));
+							$res = $dbverf->selectNombreHombre(mt_rand(1, $nomHom[0]['nh']));
 							$sintaxis .= "\"".$res[0]['nom_h']."\",";
 						break;
 						case 'nom_m':
-							$res = $dbverf->selectNombreMujer(rand(1, $nomMuj[0]['nm']));
+							$res = $dbverf->selectNombreMujer(mt_rand(1, $nomMuj[0]['nm']));
 							$sintaxis .= "\"".$res[0]['nom_m']."\",";
 						break;
 						case 'app_pat':
-							$res = $dbverf->selectApp(rand(1, $apel[0]['ape']));
+							$res = $dbverf->selectApp(mt_rand(1, $apel[0]['ape']));
 							$sintaxis .= "\"".$res[0]['app']."\",";
 						break;
 						case 'app_mat':
-							$res = $dbverf->selectApp(rand(1, $apel[0]['ape']));
+							$res = $dbverf->selectApp(mt_rand(1, $apel[0]['ape']));
 							$sintaxis .= "\"".$res[0]['app']."\",";
 						break;
 						case 'email':
@@ -125,19 +125,19 @@
 							$sintaxis .= "\"".generateMail(8)."\","; 
 						break;
 						case 'localidad':
-							$res = $dbverf->selectLocalidad(rand(1, $loca[0]['loc']));
+							$res = $dbverf->selectLocalidad(mt_rand(1, $loca[0]['loc']));
 							$sintaxis .= "\"".$res[0]['nom_loc']."\",";
 						break;
 						case 'municipio':
-							$res = $dbverf->selectMunicipio(rand(1, $munic[0]['mun']));
+							$res = $dbverf->selectMunicipio(mt_rand(1, $munic[0]['mun']));
 							$sintaxis .= "\"".$res[0]['nom_mun']."\",";
 						break;
 						case 'estado':
-							$res = $dbverf->selectEstado(rand(1, $esta[0]['est']));
+							$res = $dbverf->selectEstado(mt_rand(1, $esta[0]['est']));
 							$sintaxis .= "\"".$res[0]['nom_estado']."\",";
 						break;
 						case 'pais':
-							$res = $dbverf->selectPais(rand(1, $pais[0]['pai']));
+							$res = $dbverf->selectPais(mt_rand(1, $pais[0]['pai']));
 							$sintaxis .= "\"".$res[0]['nom_pais']."\",";
 						break;
 						case 'ai':
