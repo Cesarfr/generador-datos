@@ -16,15 +16,15 @@
 	<div class="container">
 		<form method="POST" id="frm_gd" action="src/genera.php">
 			<div class="encabezado">
-				<h3>Elige un nombre para tu archivo:</h3>
+				<h3>Nombre para tu archivo (También será el nombre de la base de datos):</h3>
 				<label for="nom_archivo" class="lblBold">Nombre : </label>
-				<input type="text" id="nom_archivo" name="nom_archivo" placeholder="Nombre de tu archivo" maxlength="50">.sql
+				<input type="text" id="nom_archivo" name="nom_archivo" placeholder="Nombre del archivo o BD" maxlength="50">.sql
 			</div>
 			<div class="cuerpo">
 				<table id="datos">
 					<thead>
 						<tr>
-							<th id="orden">#Orden</th>
+							<th id="orden">#</th>
 							<th id="titulo">Titulo de columna</th>
 							<th id="tipo_d">Tipo de dato</th>
 							<th id="elim">Eliminar</th>
@@ -156,12 +156,12 @@
 					<div class="opc2">
 						<label class="lblBold">Opciones Adicionales</label>
 						<div>
-							<input type="checkbox" name="inc_ct" id="inc_ct">
-							<label for="inc_ct">Incluir sentencia CREATE TABLE</label>
+							<input type="checkbox" name="inc_cdb" id="inc_cdb">
+							<label for="inc_cdb">Incluir sentencia CREATE DATABASE</label>
 						</div>
 						<div>
-							<input type="checkbox" name="inc_dt" id="inc_dt">
-							<label for="inc_dt">Incluir sentencia DROP TABLE</label>
+							<input type="checkbox" name="inc_ct" id="inc_ct">
+							<label for="inc_ct">Incluir sentencia DROP TABLE / CREATE TABLE</label>
 						</div>
 					</div>
 					<div class="opc3">
@@ -183,7 +183,7 @@
 			</div>
 		</form>
 		<div id='result'>
-			<section id='contenido'></section>
+			<div id='contenido'></div>
 		</div>
 		<footer>Realizado por: Cesar Hernández Antonio</footer>
 	</div>

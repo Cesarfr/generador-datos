@@ -12,8 +12,7 @@
 		require_once('Connection.php');
 
 		/** Variables fijas **/
-		$create = "CREATE TABLE ";
-		$drop = "DROP TABLE ";
+		$cdb = "CREATE DATABASE ";
 		$auto_i = "AUTO_INCREMENT";
 		$PK = "PRIMARY KEY ";
 		/** Fin variables fijas */
@@ -40,12 +39,12 @@
 		unset($_POST['cantidad']);
 		unset($_POST['nom_tabla']);
 		unset($_POST['inc_ct']);
-		unset($_POST['inc_dt']);
+		unset($_POST['inc_cdb']);
 		unset($_POST['pk_opc']);
 		unset($_POST['num_filas']);
 		unset($_POST['generar']);
 		
-		// calculamos el tamaño del array de solo inputs y selects (RELACION[input,select]) es decir va uno y uno
+		// calculamos el tamaño del array de solo inputs y selects
 		$taman = count($_POST);
 		
 		$arrayID = array_keys($_POST);
@@ -54,17 +53,17 @@
 
 		// Validaciones para las opciones del usuario
 		/**
-		 * Si se ha elegido incluir DROP TABLE
+		 * Si se ha elegido incluir CREATE DATABASE
 		 */
-		if ($clonePOST['inc_dt']=="on") {
-			$sintaxis = $drop.$clonePOST['nom_tabla'].";\n\n";
+		if ($clonePOST['inc_cdb']=="on") {
+			$sintaxis = $cdb.$clonePOST['nom_archivo'].";\nUSE ".$clonePOST['nom_archivo'].";\n\n";
 		}
 		/**
 		 * Si se ha elegido incluir CREATE TABLE
 		 */
 		if($clonePOST['inc_ct']=="on"){
 			if ($clonePOST['pk_opc']=="default") {
-				$sintaxis .= $create.$clonePOST['nom_tabla']."(id int ".$PK.$auto_i;
+				$sintaxis .= "DROP TABLE ".$clonePOST['nom_tabla'].";\nCREATE TABLE ".$clonePOST['nom_tabla']."(id int ".$PK.$auto_i;
 			} else {
 				$sintaxis .= $create.$clonePOST['nom_tabla']."(id int NOT NULL";
 			}
@@ -75,84 +74,89 @@
 					$sintaxis .= ", \n\t".$_POST[$arrayID[$i]]." varchar(255) NOT NULL";
 				}
 			}
-			$sintaxis .=") DEFAULT CHARSET=utf8;\n\n";
+			$sintaxis .=")ENGINE=MyISAM DEFAULT CHARSET=utf8;\n\n";
 		}
 		/**
 		 * Aqui comienzan las consultas
 		 */
+		
+		$sintaxis .= "INSERT INTO ".$clonePOST['nom_tabla']." (";
+		for ($i=0; $i <= $taman-1; $i++) { 
+			if ($i%2==0) 
+			{ 
+				$sintaxis .= $_POST[$arrayID[$i]].", "; 
+			}
+		}
+		$sintaxis .= ") VALUES ";
+		
 		for ($k=1; $k <= $clonePOST['num_filas']; $k++) {
-			$sintaxis .= "INSERT INTO ".$clonePOST['nom_tabla']." (";
-			for ($i=0; $i <= $taman-1; $i++) { 
-				if ($i%2==0) 
-				{ 
-					$sintaxis .= $_POST[$arrayID[$i]].", "; 
+			$sintaxis .= "(";
+			for ($i=0; $i <= $taman-1; $i++) {
+				// Switch que gestiona el tipo de dato a generar segun lo escogido por el usuario
+				switch ($_POST[$arrayID[$i]]) {
+					case 'nom_h':
+						$res = $dbverf->selectNombreHombre(mt_rand(1, $nomHom[0]['nh']));
+						$sintaxis .= "\"".$res[0]['nom_h']."\",";
+					break;
+					case 'nom_m':
+						$res = $dbverf->selectNombreMujer(mt_rand(1, $nomMuj[0]['nm']));
+						$sintaxis .= "\"".$res[0]['nom_m']."\",";
+					break;
+					case 'app_pat':
+						$res = $dbverf->selectApp(mt_rand(1, $apel[0]['ape']));
+						$sintaxis .= "\"".$res[0]['app']."\",";
+					break;
+					case 'app_mat':
+						$res = $dbverf->selectApp(mt_rand(1, $apel[0]['ape']));
+						$sintaxis .= "\"".$res[0]['app']."\",";
+					break;
+					case 'email':
+						$sintaxis .= "\"".generateMail()."@hotmail.com\",";
+					break;
+					case 'telefono':
+						// Se genera un numero de 10 cifras aleatorias para el telefono usando la funcion rand()
+						for ($tel = 0; $tel < 10; $tel++) { 
+							$numero .= mt_rand(0, 9);
+						}
+						$sintaxis .= "\"".$numero."\",";
+						$numero = "";
+					break;
+					case 'password':
+						// generacion de una cadena de numeros y letras para la contraseña
+						$sintaxis .= "\"".generateMail(8)."\","; 
+					break;
+					case 'localidad':
+						$res = $dbverf->selectLocalidad(mt_rand(1, $loca[0]['loc']));
+						$sintaxis .= "\"".$res[0]['nom_loc']."\",";
+					break;
+					case 'municipio':
+						$res = $dbverf->selectMunicipio(mt_rand(1, $munic[0]['mun']));
+						$sintaxis .= "\"".$res[0]['nom_mun']."\",";
+					break;
+					case 'estado':
+						$res = $dbverf->selectEstado(mt_rand(1, $esta[0]['est']));
+						$sintaxis .= "\"".$res[0]['nom_estado']."\",";
+					break;
+					case 'pais':
+						$res = $dbverf->selectPais(mt_rand(1, $pais[0]['pai']));
+						$sintaxis .= "\"".$res[0]['nom_pais']."\",";
+					break;
+					case 'ai':
+						$sintaxis .= "\"".($k)."\",";
+					break;
+					case 'dal':
+						$sintaxis .= "\"".(mt_rand(1*100, 10000*100)/100)."\",";
+					break;
+					case 'dinero':
+						$sintaxis .= "\"$".(mt_rand(1*100, 10000*100)/100)."\",";
+					break;
 				}
 			}
-			$sintaxis .= ") VALUES (";
-			for ($i=0; $i <= $taman-1; $i++) { 
-				if ($i%2!=0) { 
-					// Switch que gestiona el tipo de dato a generar segun lo escogido por el usuario
-					switch ($_POST[$arrayID[$i]]) {
-						case 'nom_h':
-							$res = $dbverf->selectNombreHombre(mt_rand(1, $nomHom[0]['nh']));
-							$sintaxis .= "\"".$res[0]['nom_h']."\",";
-						break;
-						case 'nom_m':
-							$res = $dbverf->selectNombreMujer(mt_rand(1, $nomMuj[0]['nm']));
-							$sintaxis .= "\"".$res[0]['nom_m']."\",";
-						break;
-						case 'app_pat':
-							$res = $dbverf->selectApp(mt_rand(1, $apel[0]['ape']));
-							$sintaxis .= "\"".$res[0]['app']."\",";
-						break;
-						case 'app_mat':
-							$res = $dbverf->selectApp(mt_rand(1, $apel[0]['ape']));
-							$sintaxis .= "\"".$res[0]['app']."\",";
-						break;
-						case 'email':
-							$sintaxis .= "\"".generateMail()."@hotmail.com\",";
-						break;
-						case 'telefono':
-							// Se genera un numero de 10 cifras aleatorias para el telefono usando la funcion rand()
-							for ($tel = 0; $tel < 10; $tel++) { 
-								$numero .= mt_rand(0, 9);
-							}
-							$sintaxis .= "\"".$numero."\",";
-							$numero = "";
-						break;
-						case 'password':
-							// generacion de una cadena de numeros y letras para la contraseña
-							$sintaxis .= "\"".generateMail(8)."\","; 
-						break;
-						case 'localidad':
-							$res = $dbverf->selectLocalidad(mt_rand(1, $loca[0]['loc']));
-							$sintaxis .= "\"".$res[0]['nom_loc']."\",";
-						break;
-						case 'municipio':
-							$res = $dbverf->selectMunicipio(mt_rand(1, $munic[0]['mun']));
-							$sintaxis .= "\"".$res[0]['nom_mun']."\",";
-						break;
-						case 'estado':
-							$res = $dbverf->selectEstado(mt_rand(1, $esta[0]['est']));
-							$sintaxis .= "\"".$res[0]['nom_estado']."\",";
-						break;
-						case 'pais':
-							$res = $dbverf->selectPais(mt_rand(1, $pais[0]['pai']));
-							$sintaxis .= "\"".$res[0]['nom_pais']."\",";
-						break;
-						case 'ai':
-							$sintaxis .= "\"".($k)."\",";
-						break;
-						case 'dal':
-							$sintaxis .= "\"".(mt_rand(1*100, 10000*100)/100)."\",";
-						break;
-						case 'dinero':
-							$sintaxis .= "\"$".(mt_rand(1*100, 10000*100)/100)."\",";
-						break;
-					}
-				}
+			if($k == $clonePOST['num_filas']){
+				$sintaxis .= " );\n";
+			}else{
+				$sintaxis .= " ),\n";
 			}
-			$sintaxis .= " );\n";
 		}
 		echo str_replace(", )",")", $sintaxis);
 	}
