@@ -74,7 +74,7 @@
 			if ($clonePOST['pk_opc']=="default") {
 				$sintaxis .= "DROP TABLE ".$clonePOST['nom_tabla'].";\nCREATE TABLE ".$clonePOST['nom_tabla']."(id int ".$PK.$auto_i;
 			} else {
-				$sintaxis .= "CREATE TABLE ".$clonePOST['nom_tabla']."(id int NOT NULL";
+				$sintaxis .= "DROP TABLE ".$clonePOST['nom_tabla'].";\nCREATE TABLE ".$clonePOST['nom_tabla']."(id int NOT NULL";
 			}
 			// obtenemos solo los nombres escritos en los input, el if es para obtener los pares 
 			for ($i=0; $i <= $taman-1; $i++) { 
