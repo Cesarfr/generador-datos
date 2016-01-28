@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-01-2016 a las 23:35:09
+-- Tiempo de generación: 25-01-2016 a las 14:24:16
 -- Versión del servidor: 5.5.46-0ubuntu0.14.04.2
 -- Versión de PHP: 5.5.9-1ubuntu4.14
 
@@ -21,6 +21,47 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `gendatam` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `gendatam`;
+
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selApp`(IN _id int)
+BEGIN
+	SELECT app FROM apellido WHERE id_app=_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selEst`(IN _id int)
+BEGIN
+	SELECT nom_estado FROM estado WHERE id_estado=_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selLoc`(IN _id int)
+BEGIN
+	SELECT nom_loc FROM localidad WHERE id_loc=_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selMun`(IN _id int)
+BEGIN
+	SELECT nom_mun FROM municipio WHERE id_municipio=_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selNH`(IN _id int)
+BEGIN
+	SELECT nom_h FROM nombre_hombre WHERE id_nh=_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selNM`(IN _id int)
+BEGIN
+	SELECT nom_m FROM nombre_mujer WHERE id_nm=_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `selPais`(IN _id int)
+BEGIN
+	SELECT nom_pais FROM pais WHERE id_pais=_id;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
