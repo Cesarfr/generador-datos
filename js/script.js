@@ -109,7 +109,7 @@ function validarForm() {
 	}
     else { // Envio del formulario
 		frm.submit();
-		frm.reset();
+//		frm.reset();
 	}
 }
 
