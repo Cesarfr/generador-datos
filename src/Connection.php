@@ -6,8 +6,8 @@ class Connection{
 	}
 	public function __destruct(){}
 	
-	public function selectNombreHombre($id){
- 		$query = "SELECT nom_h FROM nombre_hombre WHERE id_nh=$id";
+	public function selectNombreHombre(){
+ 		$query = "SELECT nom_h FROM nombre_hombre";
  		
 		$result = $this->conn->prepare($query);
 
@@ -15,48 +15,48 @@ class Connection{
 		return $result->fetchAll(PDO::FETCH_ASSOC);
  	}
 	
-	public function selectNombreMujer($id){
- 		$query = "SELECT nom_m FROM nombre_mujer WHERE id_nm=$id";
+	public function selectNombreMujer(){
+ 		$query = "SELECT nom_m FROM nombre_mujer";
  		$result = $this->conn->prepare($query);
 
 		$result->execute();
 		return $result->fetchAll(PDO::FETCH_ASSOC);
  	}
 	
-	public function selectApp($id){
- 		$query = "SELECT app FROM apellido WHERE id_app=$id";
+	public function selectApp(){
+ 		$query = "SELECT app FROM apellido";
  		$result = $this->conn->prepare($query);
 
 		$result->execute();
 		return $result->fetchAll(PDO::FETCH_ASSOC);
  	}
 	
-	public function selectLocalidad($id){
- 		$query = "SELECT nom_loc FROM localidad WHERE id_loc=$id";
+	public function selectLocalidad(){
+ 		$query = "SELECT nom_loc FROM localidad";
  		$result = $this->conn->prepare($query);
 
 		$result->execute();
 		return $result->fetchAll(PDO::FETCH_ASSOC);
  	}
 	
- 	public function selectMunicipio($id){
- 		$query = "SELECT nom_mun FROM municipio WHERE id_municipio=$id";
+ 	public function selectMunicipio(){
+ 		$query = "SELECT nom_mun FROM municipio";
  		$result = $this->conn->prepare($query);
 
 		$result->execute();
 		return $result->fetchAll(PDO::FETCH_ASSOC);
  	}
 	
- 	public function selectEstado($id){
- 		$query = "SELECT nom_estado FROM estado WHERE id_estado=$id";
+ 	public function selectEstado(){
+ 		$query = "SELECT nom_estado FROM estado";
  		$result = $this->conn->prepare($query);
 
 		$result->execute();
 		return $result->fetchAll(PDO::FETCH_ASSOC);
  	}
 	
-	public function selectPais($id){
- 		$query = "SELECT nom_pais FROM pais WHERE id_pais=$id";
+	public function selectPais(){
+ 		$query = "SELECT nom_pais FROM pais";
  		$result = $this->conn->prepare($query);
 		$result->execute();
 		return $result->fetchAll(PDO::FETCH_ASSOC);

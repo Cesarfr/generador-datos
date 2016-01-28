@@ -31,6 +31,16 @@
 		$esta = $dbverf->countEst();
 		$pais = $dbverf->countPais();
 		
+		// Obtenemos los valores
+		$tnh = $dbverf->selectNombreHombre();
+		$tnm = $dbverf->selectNombreMujer();
+		$tapp = $dbverf->selectApp();
+		$tloc = $dbverf->selectLocalidad();
+		$tmun = $dbverf->selectMunicipio();
+		$test = $dbverf->selectEstado();
+		$tpa = $dbverf->selectPais();
+		
+		//var_dump($tnh[mt_rand(1, $nomHom[0]['nh'])]['nom_h']);
 		// clonamos el array para manipularlo
 		$clonePOST = $_POST;
 		
@@ -48,7 +58,6 @@
 		$taman = count($_POST);
 		
 		$arrayID = array_keys($_POST);
-		//var_dump($arrayID);
 		$numero = ""; // variable para los telefonos
 
 		// Validaciones para las opciones del usuario
@@ -93,20 +102,20 @@
 				// Switch que gestiona el tipo de dato a generar segun lo escogido por el usuario
 				switch ($_POST[$arrayID[$i]]) {
 					case 'nom_h':
-						$res = $dbverf->selectNombreHombre(mt_rand(1, $nomHom[0]['nh']));
-						$sintaxis .= "\"".$res[0]['nom_h']."\",";
+						$res = $tnh[mt_rand(1, $nomHom[0]['nh'])]['nom_h'];
+						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'nom_m':
-						$res = $dbverf->selectNombreMujer(mt_rand(1, $nomMuj[0]['nm']));
-						$sintaxis .= "\"".$res[0]['nom_m']."\",";
+						$res = $tnm[mt_rand(1, $nomMuj[0]['nm'])]['nom_m'];
+						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'app_pat':
-						$res = $dbverf->selectApp(mt_rand(1, $apel[0]['ape']));
-						$sintaxis .= "\"".$res[0]['app']."\",";
+						$res = $tapp[mt_rand(1, $apel[0]['ape'])]['app'];
+						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'app_mat':
-						$res = $dbverf->selectApp(mt_rand(1, $apel[0]['ape']));
-						$sintaxis .= "\"".$res[0]['app']."\",";
+						$res = $tapp[mt_rand(1, $apel[0]['ape'])]['app'];
+						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'email':
 						$sintaxis .= "\"".generateMail()."@hotmail.com\",";
@@ -124,20 +133,20 @@
 						$sintaxis .= "\"".generateMail(8)."\","; 
 					break;
 					case 'localidad':
-						$res = $dbverf->selectLocalidad(mt_rand(1, $loca[0]['loc']));
-						$sintaxis .= "\"".$res[0]['nom_loc']."\",";
+						$res = $tloc[mt_rand(1, $loca[0]['loc'])]['nom_loc'];
+						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'municipio':
-						$res = $dbverf->selectMunicipio(mt_rand(1, $munic[0]['mun']));
-						$sintaxis .= "\"".$res[0]['nom_mun']."\",";
+						$res = $tmun[mt_rand(1, $munic[0]['mun'])]['nom_mun'];
+						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'estado':
-						$res = $dbverf->selectEstado(mt_rand(1, $esta[0]['est']));
-						$sintaxis .= "\"".$res[0]['nom_estado']."\",";
+						$res = $test[mt_rand(1, $esta[0]['est'])]['nom_estado'];
+						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'pais':
-						$res = $dbverf->selectPais(mt_rand(1, $pais[0]['pai']));
-						$sintaxis .= "\"".$res[0]['nom_pais']."\",";
+						$res = $tpa[mt_rand(1, $pais[0]['pai'])]['nom_pais'];
+						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'ai':
 						$sintaxis .= "\"".($k)."\",";
