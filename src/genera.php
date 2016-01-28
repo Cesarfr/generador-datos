@@ -31,6 +31,16 @@
 		$esta = $dbverf->countEst();
 		$pais = $dbverf->countPais();
 		
+		$tipo = $dbverf->countTipo();
+		$trabajo = $dbverf->countTrab();
+		$grupo = $dbverf->countGrupo();
+		$periodo = $dbverf->countPer();
+		$parcial = $dbverf->countPar();
+		$calif = $dbverf->countCal();
+		$escuela = $dbverf->countEsc();
+		$asitencia = $dbverf->countAsis();
+		$salon = $dbverf->countSal();
+		
 		// Obtenemos los valores
 		$tnh = $dbverf->selectNombreHombre();
 		$tnm = $dbverf->selectNombreMujer();
@@ -39,6 +49,16 @@
 		$tmun = $dbverf->selectMunicipio();
 		$test = $dbverf->selectEstado();
 		$tpa = $dbverf->selectPais();
+		
+		$ttal = $dbverf->selectTipoAl();
+		$ttrab = $dbverf->selectTrabajo();
+		$tgrup = $dbverf->selectGrupo();
+		$tper = $dbverf->selectPeriodo();
+		$tpar = $dbverf->selectParcial();
+		$tcalif = $dbverf->selectCalif();
+		$tesc = $dbverf->selectEsc();
+		$tasis = $dbverf->selectAsis();
+		$tsal = $dbverf->selectSalon();
 		
 		//var_dump($tnh[mt_rand(1, $nomHom[0]['nh'])]['nom_h']);
 		// clonamos el array para manipularlo
@@ -89,7 +109,7 @@
 		 * Aqui comienzan las consultas
 		 */
 		$sintaxis .= "INSERT INTO ".$clonePOST['nom_tabla']." (";
-		for ($i=0; $i <= $taman-1; $i++) { 
+		for ($i=0; $i <= $taman-1; $i++) {
 			if ($i%2==0) 
 			{ 
 				$sintaxis .= $_POST[$arrayID[$i]].", "; 
@@ -102,19 +122,19 @@
 				// Switch que gestiona el tipo de dato a generar segun lo escogido por el usuario
 				switch ($_POST[$arrayID[$i]]) {
 					case 'nom_h':
-						$res = $tnh[mt_rand(1, $nomHom[0]['nh'])]['nom_h'];
+						$res = $tnh[mt_rand(0, $nomHom[0]['nh'])]['nom_h'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'nom_m':
-						$res = $tnm[mt_rand(1, $nomMuj[0]['nm'])]['nom_m'];
+						$res = $tnm[mt_rand(0, $nomMuj[0]['nm'])]['nom_m'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'app_pat':
-						$res = $tapp[mt_rand(1, $apel[0]['ape'])]['app'];
+						$res = $tapp[mt_rand(0, $apel[0]['ape'])]['app'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'app_mat':
-						$res = $tapp[mt_rand(1, $apel[0]['ape'])]['app'];
+						$res = $tapp[mt_rand(0, $apel[0]['ape'])]['app'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'email':
@@ -133,19 +153,19 @@
 						$sintaxis .= "\"".generateMail(8)."\","; 
 					break;
 					case 'localidad':
-						$res = $tloc[mt_rand(1, $loca[0]['loc'])]['nom_loc'];
+						$res = $tloc[mt_rand(0, $loca[0]['loc'])]['nom_loc'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'municipio':
-						$res = $tmun[mt_rand(1, $munic[0]['mun'])]['nom_mun'];
+						$res = $tmun[mt_rand(0, $munic[0]['mun'])]['nom_mun'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'estado':
-						$res = $test[mt_rand(1, $esta[0]['est'])]['nom_estado'];
+						$res = $test[mt_rand(0, $esta[0]['est'])]['nom_estado'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'pais':
-						$res = $tpa[mt_rand(1, $pais[0]['pai'])]['nom_pais'];
+						$res = $tpa[mt_rand(0, $pais[0]['pai'])]['nom_pais'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'ai':
@@ -156,6 +176,49 @@
 					break;
 					case 'dinero':
 						$sintaxis .= "\"$".(mt_rand(1*100, 10000*100)/100)."\",";
+					break;
+					case 'matricula':
+						$sintaxis .= "\"".(mt_rand(1, 10000000))."\",";
+					break;
+					case 'calif':
+						$sintaxis .= "\"".(mt_rand(1, 100)/10)."\",";
+					break;
+						
+					case 'tipoal':
+						$res = $ttal[mt_rand(0, ($tipo[0]['ta']-1))]['tipoAl'];
+						$sintaxis .= "\"".$res."\",";
+					break;	
+					case 'trabajo':
+						$res = $ttrab[mt_rand(0, ($trabajo[0]['trab']-1))]['nomTra'];
+						$sintaxis .= "\"".$res."\",";
+					break;	
+					case 'grupo':
+						$res = $tgrup[mt_rand(0, ($grupo[0]['grup']-1))]['nomGrup'];
+						$sintaxis .= "\"".$res."\",";
+					break;	
+					case 'periodo':
+						$res = $tper[mt_rand(0, ($periodo[0]['per']-1))]['nomPer'];
+						$sintaxis .= "\"".$res."\",";
+					break;	
+					case 'parcial':
+						$res = $tpar[mt_rand(0, ($parcial[0]['par']-1))]['nomPar'];
+						$sintaxis .= "\"".$res."\",";
+					break;	
+					case 'clf':
+						$res = $tcalif[mt_rand(0, ($calif[0]['cal']-1))]['nomCal'];
+						$sintaxis .= "\"".$res."\",";
+					break;	
+					case 'escuela':
+						$res = $tesc[mt_rand(0, ($escuela[0]['esc']-1))]['nomEsc'];
+						$sintaxis .= "\"".$res."\",";
+					break;	
+					case 'asis':
+						$res = $tasis[mt_rand(0, ($asitencia[0]['asis']-1))]['nomAsist'];
+						$sintaxis .= "\"".$res."\",";
+					break;	
+					case 'salon':
+						$res = $tsal[mt_rand(0, ($salon[0]['sal']-1))]['nomSal'];
+						$sintaxis .= "\"".$res."\",";
 					break;
 				}
 			}

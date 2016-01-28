@@ -39,6 +39,19 @@ function crearCampos(cantidad) {
 			"<option value='ai'>AutoIncrementable</option>" +
 			"<option value='dal'>Decimal aleatorio</option>" +
 			"<option value='dinero'>Dinero ($)</option>" +
+			"<option value='matricula'>Matricula</option>" +
+			"<option value='calif'>Calificacion</option>" +
+			"</optgroup>" +
+			"<optgroup label='Otros'>" +
+			"<option value='tipoal'>Tipo Alumno</option>" +
+			"<option value='trabajo'>Trabajos</option>" +
+			"<option value='grupo'>Grupo</option>" +
+			"<option value='periodo'>Periodo</option>" +
+			"<option value='parcial'>Parcial</option>" +
+			"<option value='clf'>Calificacion (en letra)</option>" +
+			"<option value='escuela'>Escuela</option>" +
+			"<option value='asis'>Asistencia</option>" +
+			"<option value='salon'>Salon</option>" +
 			"</optgroup>" +
 			"</select>" +
 			"</td>";
