@@ -5,7 +5,30 @@
 	function generateMail($length = 5) {
 		return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 	}
-
+	function random_date($from = 0, $to = null) {
+		if (!$to) {
+			$to = date('U');
+		}
+		if (!ctype_digit($from)) {
+			$from = strtotime($from);
+		}
+		if (!ctype_digit($to)) {
+			$to = strtotime($to);
+		}
+		return date('Y-m-d', rand($from, $to));
+	}
+	function random_hour($from = 0, $to = null) {
+		if (!$to) {
+			$to = date('U');
+		}
+		if (!ctype_digit($from)) {
+			$from = strtotime($from);
+		}
+		if (!ctype_digit($to)) {
+			$to = strtotime($to);
+		}
+		return date('h:i:s', rand($from, $to));
+	}
 	if (isset($_POST)) {
 		header("Content-type: text/plain; charset=utf-8");
 		header("Content-Disposition: attachment; filename=\"".$_POST['nom_archivo'].".sql\"");
@@ -40,6 +63,7 @@
 		$escuela = $dbverf->countEsc();
 		$asitencia = $dbverf->countAsis();
 		$salon = $dbverf->countSal();
+		$materia = $dbverf->countMat();
 		
 		// Obtenemos los valores
 		$tnh = $dbverf->selectNombreHombre();
@@ -59,8 +83,8 @@
 		$tesc = $dbverf->selectEsc();
 		$tasis = $dbverf->selectAsis();
 		$tsal = $dbverf->selectSalon();
+		$tmat = $dbverf->selectMateria();
 		
-		//var_dump($tnh[mt_rand(1, $nomHom[0]['nh'])]['nom_h']);
 		// clonamos el array para manipularlo
 		$clonePOST = $_POST;
 		
@@ -92,17 +116,41 @@
 		 */
 		if($clonePOST['inc_ct']=="on"){
 			if ($clonePOST['pk_opc']=="default") {
-				$sintaxis .= "DROP TABLE ".$clonePOST['nom_tabla'].";\nCREATE TABLE ".$clonePOST['nom_tabla']."(id int ".$PK.$auto_i;
+				$sintaxis .= "DROP TABLE IF EXISTS ".$clonePOST['nom_tabla'].";\nCREATE TABLE ".$clonePOST['nom_tabla']."(id int ".$PK.$auto_i;
 			} else {
-				$sintaxis .= "DROP TABLE ".$clonePOST['nom_tabla'].";\nCREATE TABLE ".$clonePOST['nom_tabla']."(id int NOT NULL";
+				$sintaxis .= "DROP TABLE IF EXISTS ".$clonePOST['nom_tabla'].";\nCREATE TABLE ".$clonePOST['nom_tabla']."(";
 			}
 			// obtenemos solo los nombres escritos en los input, el if es para obtener los pares 
 			for ($i=0; $i <= $taman-1; $i++) { 
-				if ($i%2==0) 
-				{ 
-					$sintaxis .= ", \n\t".$_POST[$arrayID[$i]]." varchar(255) NOT NULL";
+				if ($i%2==0) {
+					$sintaxis .= ", \n\t".$_POST[$arrayID[$i]];
 				}
+				if ($i%2!=0) {
+					switch($_POST[$arrayID[$i]]){
+						case 'telefon': case 'matric':
+							$sintaxis .= " bigint NOT NULL";
+						break;
+						case 'dal':
+						case 'calif':
+							$sintaxis .= " double NOT NULL";
+						break;
+						case 'ai': case 'intale':
+							$sintaxis .= " int NOT NULL";
+						break;
+						case 'fecDate':
+							$sintaxis .= " DATE NOT NULL";
+						break;
+						case 'houDate':
+							$sintaxis .= " TIME NOT NULL";
+						break;
+						default:
+							$sintaxis .= " VARCHAR(255) NOT NULL";
+						break;
+					}
+				}
+				
 			}
+			$sintaxis = str_replace("(,","(", $sintaxis);
 			$sintaxis .=")ENGINE=MyISAM DEFAULT CHARSET=utf8;\n\n";
 		}
 		/**
@@ -137,10 +185,10 @@
 						$res = $tapp[mt_rand(0, $apel[0]['ape'])]['app'];
 						$sintaxis .= "\"".$res."\",";
 					break;
-					case 'email':
+					case 'emai':
 						$sintaxis .= "\"".generateMail()."@hotmail.com\",";
 					break;
-					case 'telefono':
+					case 'telefon':
 						// Se genera un numero de 10 cifras aleatorias para el telefono usando la funcion rand()
 						for ($tel = 0; $tel < 10; $tel++) { 
 							$numero .= mt_rand(0, 9);
@@ -148,59 +196,72 @@
 						$sintaxis .= "\"".$numero."\",";
 						$numero = "";
 					break;
-					case 'password':
+					case 'passwd':
 						// generacion de una cadena de numeros y letras para la contraseña
 						$sintaxis .= "\"".generateMail(8)."\","; 
 					break;
-					case 'localidad':
+					case 'lcld':
 						$res = $tloc[mt_rand(0, $loca[0]['loc'])]['nom_loc'];
 						$sintaxis .= "\"".$res."\",";
 					break;
-					case 'municipio':
+					case 'munic':
 						$res = $tmun[mt_rand(0, $munic[0]['mun'])]['nom_mun'];
 						$sintaxis .= "\"".$res."\",";
 					break;
-					case 'estado':
+					case 'estd':
 						$res = $test[mt_rand(0, $esta[0]['est'])]['nom_estado'];
 						$sintaxis .= "\"".$res."\",";
 					break;
-					case 'pais':
+					case 'paisW':
 						$res = $tpa[mt_rand(0, $pais[0]['pai'])]['nom_pais'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'ai':
 						$sintaxis .= "\"".($k)."\",";
 					break;
+					case 'intale':
+						$sintaxis .= "\"".(mt_rand(1, $clonePOST['num_filas']))."\",";
+					break;
 					case 'dal':
 						$sintaxis .= "\"".(mt_rand(1*100, 10000*100)/100)."\",";
 					break;
-					case 'dinero':
+					case 'mondin':
 						$sintaxis .= "\"$".(mt_rand(1*100, 10000*100)/100)."\",";
 					break;
-					case 'matricula':
+					case 'matric':
 						$sintaxis .= "\"".(mt_rand(1, 10000000))."\",";
 					break;
 					case 'calif':
 						$sintaxis .= "\"".(mt_rand(1, 100)/10)."\",";
 					break;
+					case 'fecDate':
+						$sintaxis .= "\"".random_date('2000-01-01', '2016-12-31')."\",";
+					break;
+					case 'houDate':
+						$sintaxis .= "\"".random_hour('00:00:00','24:60:60')."\",";
+					break;
 						
 					case 'tipoal':
 						$res = $ttal[mt_rand(0, ($tipo[0]['ta']-1))]['tipoAl'];
 						$sintaxis .= "\"".$res."\",";
+					break;
+					case 'mat':
+						$res = $tmat[mt_rand(0, ($materia[0]['mate']-1))]['nomMat'];
+						$sintaxis .= "\"".$res."\",";
 					break;	
-					case 'trabajo':
+					case 'trabEsc':
 						$res = $ttrab[mt_rand(0, ($trabajo[0]['trab']-1))]['nomTra'];
 						$sintaxis .= "\"".$res."\",";
 					break;	
-					case 'grupo':
+					case 'groupEsc':
 						$res = $tgrup[mt_rand(0, ($grupo[0]['grup']-1))]['nomGrup'];
 						$sintaxis .= "\"".$res."\",";
 					break;	
-					case 'periodo':
+					case 'perEsc':
 						$res = $tper[mt_rand(0, ($periodo[0]['per']-1))]['nomPer'];
 						$sintaxis .= "\"".$res."\",";
 					break;	
-					case 'parcial':
+					case 'parcEsc':
 						$res = $tpar[mt_rand(0, ($parcial[0]['par']-1))]['nomPar'];
 						$sintaxis .= "\"".$res."\",";
 					break;	
@@ -208,7 +269,7 @@
 						$res = $tcalif[mt_rand(0, ($calif[0]['cal']-1))]['nomCal'];
 						$sintaxis .= "\"".$res."\",";
 					break;	
-					case 'escuela':
+					case 'escEsc':
 						$res = $tesc[mt_rand(0, ($escuela[0]['esc']-1))]['nomEsc'];
 						$sintaxis .= "\"".$res."\",";
 					break;	
@@ -216,7 +277,7 @@
 						$res = $tasis[mt_rand(0, ($asitencia[0]['asis']-1))]['nomAsist'];
 						$sintaxis .= "\"".$res."\",";
 					break;	
-					case 'salon':
+					case 'salonEsc':
 						$res = $tsal[mt_rand(0, ($salon[0]['sal']-1))]['nomSal'];
 						$sintaxis .= "\"".$res."\",";
 					break;
