@@ -109,7 +109,7 @@
 		 * Si se ha elegido incluir CREATE DATABASE
 		 */
 		if ($clonePOST['inc_cdb']=="on") {
-			$sintaxis = $cdb.$clonePOST['nom_archivo'].";\nUSE ".$clonePOST['nom_archivo'].";\n\n";
+			$sintaxis = $cdb.$clonePOST['nom_archivo']." DEFAULT CHARACTER SET utf8;\nUSE ".$clonePOST['nom_archivo'].";\n\n";
 		}
 		/**
 		 * Si se ha elegido incluir CREATE TABLE
