@@ -64,6 +64,7 @@
 		$asitencia = $dbverf->countAsis();
 		$salon = $dbverf->countSal();
 		$materia = $dbverf->countMat();
+		$prof = $dbverf->countPr();
 		
 		// Obtenemos los valores
 		$tnh = $dbverf->selectNombreHombre();
@@ -84,6 +85,7 @@
 		$tasis = $dbverf->selectAsis();
 		$tsal = $dbverf->selectSalon();
 		$tmat = $dbverf->selectMateria();
+		$tprof = $dbverf->selectProf();
 		
 		// clonamos el array para manipularlo
 		$clonePOST = $_POST;
@@ -243,6 +245,10 @@
 						
 					case 'tipoal':
 						$res = $ttal[mt_rand(0, ($tipo[0]['ta']-1))]['tipoAl'];
+						$sintaxis .= "\"".$res."\",";
+					break;
+					case 'profr':
+						$res = $tprof[mt_rand(0, ($prof[0]['prf']-1))]['nomProf'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'mat':

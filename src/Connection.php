@@ -131,6 +131,13 @@ class Connection{
 		$result->execute();
 		return $result->fetchAll(PDO::FETCH_ASSOC);
  	}
+
+ 	public function selectProf(){
+ 		$query = "SELECT nomProf FROM profe";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
 	
 	/*
 	 * Obtencion de total de elementos en las tablas de datos
@@ -257,6 +264,13 @@ class Connection{
 	
 	public function countMat(){
  		$query = "SELECT count(id_mat)mate FROM materia";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+
+ 	public function countPr(){
+ 		$query = "SELECT count(id_prof)prf FROM profe";
  		$result = $this->conn->prepare($query);
 		$result->execute();
 		return $result->fetchAll(PDO::FETCH_ASSOC);

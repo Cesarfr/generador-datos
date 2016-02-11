@@ -47,6 +47,7 @@ function crearCampos(cantidad) {
 			"</optgroup>" +
 			"<optgroup label='Otros'>" +
 			"<option value='tipoal'>Tipo Alumno</option>" +
+			"<option value='profr'>Profesor</option>" +
 			"<option value='mat'>Materia</option>" +
 			"<option value='trabEsc'>Trabajos</option>" +
 			"<option value='groupEsc'>Grupo</option>" +
