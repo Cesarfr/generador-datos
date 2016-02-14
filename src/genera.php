@@ -27,7 +27,7 @@
 		if (!ctype_digit($to)) {
 			$to = strtotime($to);
 		}
-		return date('h:i:s', rand($from, $to));
+		return date('H:i:s', rand($from, $to));
 	}
 	if (isset($_POST)) {
 		header("Content-type: text/plain; charset=utf-8");
