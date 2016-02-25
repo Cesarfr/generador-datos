@@ -139,6 +139,92 @@ class Connection{
 		return $result->fetchAll(PDO::FETCH_ASSOC);
  	}
 	
+	// Hospital
+	
+	public function selectCargo(){
+ 		$query = "SELECT nomCargo FROM cargo";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function selectTipEmp(){
+ 		$query = "SELECT nomTipoEm FROM tipoEmp";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function selectDepend(){
+ 		$query = "SELECT nomDep FROM dependencia";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function selectPerm(){
+ 		$query = "SELECT nomPer FROM permiso";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function selectObs(){
+ 		$query = "SELECT nomObs FROM observ";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function selectTrat(){
+ 		$query = "SELECT nomTit FROM tipoTrat";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function selectTex(){
+ 		$query = "SELECT nomTex FROM tipoExamen";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function selectDieta(){
+ 		$query = "SELECT nomDie FROM dieta";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function selectDescc(){
+ 		$query = "SELECT desCue FROM descCuenta";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function selectDesch(){
+ 		$query = "SELECT desHos FROM descHosp";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function selectDescFp(){
+ 		$query = "SELECT desFop FROM descFomp";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function selectFp(){
+ 		$query = "SELECT nomFp FROM formaPago";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
 	/*
 	 * Obtencion de total de elementos en las tablas de datos
 	 */
@@ -271,6 +357,91 @@ class Connection{
 
  	public function countPr(){
  		$query = "SELECT count(id_prof)prf FROM profe";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	// Hospital
+	public function countCg(){
+ 		$query = "SELECT count(id_c)car FROM cargo";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countTmp(){
+ 		$query = "SELECT count(id_temp)tem FROM tipoEmp";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countDep(){
+ 		$query = "SELECT count(id_dep)dep FROM dependencia";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countPerm(){
+ 		$query = "SELECT count(id_Per)perm FROM permiso";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countObsm(){
+ 		$query = "SELECT count(id_Obs)obs FROM observ";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countTtra(){
+ 		$query = "SELECT count(id_tip)ttr FROM tipoTrat";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countTex(){
+ 		$query = "SELECT count(id_tex)tex FROM tipoExamen";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countDieta(){
+ 		$query = "SELECT count(id_die)diet FROM dieta";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countDesc(){
+ 		$query = "SELECT count(id_des)desc FROM descCuenta";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countDesh(){
+ 		$query = "SELECT count(id_deh)desh FROM descHosp";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countDesfp(){
+ 		$query = "SELECT count(id_dep)desfp FROM descFomp";
+ 		$result = $this->conn->prepare($query);
+		$result->execute();
+		return $result->fetchAll(PDO::FETCH_ASSOC);
+ 	}
+	
+	public function countFp(){
+ 		$query = "SELECT count(id_fp)fopa FROM formaPago";
  		$result = $this->conn->prepare($query);
 		$result->execute();
 		return $result->fetchAll(PDO::FETCH_ASSOC);

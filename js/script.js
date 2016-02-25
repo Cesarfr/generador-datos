@@ -27,6 +27,7 @@ function crearCampos(cantidad) {
 			"<optgroup label='Contacto'>" +
 			"<option value='emai'>Email</option>" +
 			"<option value='telefon'>Teléfono</option>" +
+			"<option value='usr'>Usuario</option>" +
 			"<option value='passwd'>Contraseña</option>" +
 			"</optgroup>" +
 			"<optgroup label='Direcciones'>" +
@@ -45,19 +46,33 @@ function crearCampos(cantidad) {
 			"<option value='fecDate'>Fecha aleatoria</option>" +
 			"<option value='houDate'>Hora aleatoria</option>" +
 			"</optgroup>" +
-			"<optgroup label='Otros'>" +
-			"<option value='tipoal'>Tipo Alumno</option>" +
-			"<option value='profr'>Profesor</option>" +
-			"<option value='mat'>Materia</option>" +
-			"<option value='trabEsc'>Trabajos</option>" +
-			"<option value='groupEsc'>Grupo</option>" +
-			"<option value='perEsc'>Periodo</option>" +
-			"<option value='parcEsc'>Parcial</option>" +
-			"<option value='clf'>Calificación (en letra)</option>" +
-			"<option value='escEsc'>Escuela</option>" +
-			"<option value='asis'>Asistencia</option>" +
-			"<option value='salonEsc'>Salón</option>" +
-			"</optgroup>" +
+			"<optgroup label='Escuela'>"+
+			"<option value='tipoal'>Tipo Alumno</option>"+
+			"<option value='profr'>Profesor</option>"+
+			"<option value='mat'>Materia</option>"+
+			"<option value='trabEsc'>Trabajos</option>"+
+			"<option value='groupEsc'>Grupo</option>"+
+			"<option value='perEsc'>Periodo</option>"+
+			"<option value='parcEsc'>Parcial</option>"+
+			"<option value='clf'>Calificación (en letra)</option>"+
+			"<option value='escEsc'>Escuela</option>"+
+			"<option value='asis'>Asistencia</option>"+
+			"<option value='salonEsc'>Salón</option>"+
+			"</optgroup>"+
+			"<optgroup label='Hospital'>"+
+			"<option value='crg'>Cargo</option>"+
+			"<option value='templ'>Tipo Empleado</option>"+
+			"<option value='depnd'>Dependencia</option>"+
+			"<option value='tper'>Permiso</option>"+
+			"<option value='obsr'>Observación Médica</option>"+
+			"<option value='ttrat'>Tipo Tratamiento</option>"+
+			"<option value='texm'>Tipo Examen Médico</option>"+
+			"<option value='dta'>Dieta</option>"+
+			"<option value='decta'>Descripción cuenta</option>"+
+			"<option value='dechp'>Descripción Hospital</option>"+
+			"<option value='descfmp'>Descripción Forma de Pago</option>"+
+			"<option value='fmp'>Forma de pago</option>"+
+			"</optgroup>"+
 			"</select>" +
 			"</td>";
 		//Insertar 'celda'o componente en fila nueva. Corresponde a la opción eliminar fila de

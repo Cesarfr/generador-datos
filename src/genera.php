@@ -66,6 +66,19 @@
 		$materia = $dbverf->countMat();
 		$prof = $dbverf->countPr();
 		
+		$cargo = $dbverf->countCg();
+		$tipoEm = $dbverf->countTmp();
+		$depen = $dbverf->countDep();
+		$permiso = $dbverf->countPerm();
+		$obsme = $dbverf->countObsm();
+		$titra = $dbverf->countTtra();
+		$texa = $dbverf->countTex();
+		$dieta = $dbverf->countDieta();
+		$descc = $dbverf->countDesc();
+		$desch = $dbverf->countDesh();
+		$desfp = $dbverf->countDesfp();
+		$formp = $dbverf->countFp();
+		
 		// Obtenemos los valores
 		$tnh = $dbverf->selectNombreHombre();
 		$tnm = $dbverf->selectNombreMujer();
@@ -86,6 +99,19 @@
 		$tsal = $dbverf->selectSalon();
 		$tmat = $dbverf->selectMateria();
 		$tprof = $dbverf->selectProf();
+		
+		$tcargo = $dbverf->selectCargo();
+		$ttemp = $dbverf->selectTipEmp();
+		$tdep = $dbverf->selectDepend();
+		$tperm = $dbverf->selectPerm();
+		$tobsm = $dbverf->selectObs();
+		$tttra = $dbverf->selectTrat();
+		$ttex = $dbverf->selectTex();
+		$tdieta = $dbverf->selectDieta();
+		$tdesc = $dbverf->selectDescc();
+		$tdesh = $dbverf->selectDesch();
+		$tdesfp = $dbverf->selectDescFp();
+		$tfp = $dbverf->selectFp();
 		
 		// clonamos el array para manipularlo
 		$clonePOST = $_POST;
@@ -202,6 +228,10 @@
 						// generacion de una cadena de numeros y letras para la contraseña
 						$sintaxis .= "\"".generateMail(8)."\","; 
 					break;
+					case 'usr':
+						$res = $tnh[mt_rand(0, $nomHom[0]['nh'])]['nom_h'];
+						$sintaxis .= "\"".strtolower(str_replace(" ","", $res))."\",";
+					break;
 					case 'lcld':
 						$res = $tloc[mt_rand(0, $loca[0]['loc'])]['nom_loc'];
 						$sintaxis .= "\"".$res."\",";
@@ -225,22 +255,22 @@
 						$sintaxis .= "\"".(mt_rand(1, $clonePOST['num_filas']))."\",";
 					break;
 					case 'dal':
-						$sintaxis .= "\"".(mt_rand(1*100, 10000*100)/100)."\",";
+						$sintaxis .= "\"".(mt_rand(100, 1000000)/100)."\",";
 					break;
 					case 'mondin':
-						$sintaxis .= "\"$".(mt_rand(1*100, 10000*100)/100)."\",";
+						$sintaxis .= "\"$".(mt_rand(100, 1000000)/100)."\",";
 					break;
 					case 'matric':
 						$sintaxis .= "\"".(mt_rand(1, 10000000))."\",";
 					break;
 					case 'calif':
-						$sintaxis .= "\"".(mt_rand(1, 100)/10)."\",";
+						$sintaxis .= "\"".(mt_rand(75, 100)/10)."\",";
 					break;
 					case 'fecDate':
 						$sintaxis .= "\"".random_date('2000-01-01', '2016-12-31')."\",";
 					break;
 					case 'houDate':
-						$sintaxis .= "\"".random_hour('00:00:00','24:60:60')."\",";
+						$sintaxis .= "\"".random_hour('00:00:00','23:59:59')."\",";
 					break;
 						
 					case 'tipoal':
@@ -285,6 +315,55 @@
 					break;	
 					case 'salonEsc':
 						$res = $tsal[mt_rand(0, ($salon[0]['sal']-1))]['nomSal'];
+						$sintaxis .= "\"".$res."\",";
+					break;
+						
+					case 'crg':
+						$res = $tcargo[mt_rand(0, ($cargo[0]['car']-1))]['nomCargo'];
+						$sintaxis .= "\"".$res."\",";
+					break;
+					case 'templ':
+						$res = $ttemp[mt_rand(0, ($tipoEm[0]['tem']-1))]['nomTipoEm'];
+						$sintaxis .= "\"".$res."\",";
+					break;
+					case 'depnd':
+						$res = $tdep[mt_rand(0, ($depen[0]['dep']-1))]['nomDep'];
+						$sintaxis .= "\"".$res."\",";
+					break;
+					case 'tper':
+						$res = $tperm[mt_rand(0, ($permiso[0]['perm']-1))]['nomPer'];
+						$sintaxis .= "\"".$res."\",";
+					break;
+					case 'obsr':
+						$res = $tobsm[mt_rand(0, ($obsme[0]['obs']-1))]['nomObs'];
+						$sintaxis .= "\"".$res."\",";
+					break;
+					case 'ttrat':
+						$res = $tttra[mt_rand(0, ($titra[0]['ttr']-1))]['nomTit'];
+						$sintaxis .= "\"".$res."\",";
+					break;
+					case 'texm':
+						$res = $ttex[mt_rand(0, ($texa[0]['tex']-1))]['nomTex'];
+						$sintaxis .= "\"".$res."\",";
+					break;
+					case 'dta':
+						$res = $tdieta[mt_rand(0, ($dieta[0]['diet']-1))]['nomDie'];
+						$sintaxis .= "\"".$res."\",";
+					break;
+					case 'decta':
+						$res = $tdesc[mt_rand(0, ($descc[0]['desc']-1))]['desCue'];
+						$sintaxis .= "\"".$res."\",";
+					break;
+					case 'dechp':
+						$res = $tdesh[mt_rand(0, ($desch[0]['desh']-1))]['desHos'];
+						$sintaxis .= "\"".$res."\",";
+					break;
+					case 'descfmp':
+						$res = $tdesfp[mt_rand(0, ($desfp[0]['desfp']-1))]['desFop'];
+						$sintaxis .= "\"".$res."\",";
+					break;
+					case 'fmp':
+						$res = $tfp[mt_rand(0, ($formp[0]['fopa']-1))]['nomFp'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 				}
