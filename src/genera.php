@@ -198,19 +198,19 @@
 				// Switch que gestiona el tipo de dato a generar segun lo escogido por el usuario
 				switch ($_POST[$arrayID[$i]]) {
 					case 'nom_h':
-						$res = $tnh[mt_rand(0, $nomHom[0]['nh'])]['nom_h'];
+						$res = $tnh[mt_rand(0, ($nomHom[0]['nh']-1))]['nom_h'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'nom_m':
-						$res = $tnm[mt_rand(0, $nomMuj[0]['nm'])]['nom_m'];
+						$res = $tnm[mt_rand(0, ($nomMuj[0]['nm']-1))]['nom_m'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'app_pat':
-						$res = $tapp[mt_rand(0, $apel[0]['ape'])]['app'];
+						$res = $tapp[mt_rand(0, ($apel[0]['ape']-1))]['app'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'app_mat':
-						$res = $tapp[mt_rand(0, $apel[0]['ape'])]['app'];
+						$res = $tapp[mt_rand(0, ($apel[0]['ape']-1))]['app'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'emai':
@@ -229,23 +229,23 @@
 						$sintaxis .= "\"".generateMail(8)."\","; 
 					break;
 					case 'usr':
-						$res = $tnh[mt_rand(0, $nomHom[0]['nh'])]['nom_h'];
+						$res = $tnh[mt_rand(0, ($nomHom[0]['nh']-1))]['nom_h'];
 						$sintaxis .= "\"".strtolower(str_replace(" ","", $res))."\",";
 					break;
 					case 'lcld':
-						$res = $tloc[mt_rand(0, $loca[0]['loc'])]['nom_loc'];
+						$res = $tloc[mt_rand(0, ($loca[0]['loc']-1))]['nom_loc'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'munic':
-						$res = $tmun[mt_rand(0, $munic[0]['mun'])]['nom_mun'];
+						$res = $tmun[mt_rand(0, ($munic[0]['mun']-1))]['nom_mun'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'estd':
-						$res = $test[mt_rand(0, $esta[0]['est'])]['nom_estado'];
+						$res = $test[mt_rand(0, ($esta[0]['est']-1))]['nom_estado'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'paisW':
-						$res = $tpa[mt_rand(0, $pais[0]['pai'])]['nom_pais'];
+						$res = $tpa[mt_rand(0, ($pais[0]['pai']-1))]['nom_pais'];
 						$sintaxis .= "\"".$res."\",";
 					break;
 					case 'ai':
